@@ -78,7 +78,7 @@ base64_url_encode() {
 
   # Perform base64 encoding, then modify the result to be URL-safe
   # Replace '+' with '-', '/' with '_', and remove '=' padding
-  printf "%s" "$input" | base64 | tr '+/' '-_' | tr -d '='
+  printf "%s" "$input" | base64 -w 0 | tr '+/' '-_' | tr -d '='
 }
 
 # Generate HMAC-SHA256 signature
@@ -92,7 +92,7 @@ signature() {
   # - Encode the result in Base64
   # - Convert '+' to '-', '/' to '_', and remove '=' padding for URL safety
   printf "%s" "$data" | openssl dgst -sha256 -hmac "$secret" -binary \
-    | base64 | tr '+/' '-_' | tr -d '='
+    | base64 -w 0 | tr '+/' '-_' | tr -d '='
 }
 
 # Generate a JWT (JSON Web Token)
