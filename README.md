@@ -62,13 +62,14 @@ curl -fsSL https://raw.githubusercontent.com/skyway/ai-noise-canceller/refs/head
 
 # 利用規約
 
-本ライブラリ「SkyWay AI Noise Canceller」は OSS ではありません。
+本ライブラリ「SkyWay AI Noise Canceller」は OSS ではありません。  
 ソフトウェアやそのアーカイブに対して以下のような行為を禁止しております。
 - 改変
 - リバースエンジニアリング
 - 公開リポジトリへのアップロード
 
 詳しくは利用規約をご確認ください。
+
 [SkyWay利用規約](https://skyway.ntt.com/ja/terms/)
 
 # License
