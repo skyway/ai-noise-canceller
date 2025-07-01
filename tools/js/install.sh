@@ -71,6 +71,27 @@ make_payload() {
   printf "%s" "$payload"
 }
 
+base64_noline() {
+  if command -v base64 >/dev/null 2>&1; then
+    man_base64=$(man base64 2>/dev/null || true)
+    if printf '%s' "$man_base64" | grep -q -- '-w'; then
+      base64 -w 0
+    elif printf '%s' "$man_base64" | grep -q -- '-b'; then
+      base64 -b 0
+    else
+      base64 | tr -d '\n'
+    fi
+  elif command -v uuencode >/dev/null 2>&1; then
+    tmpfile=$(mktemp)
+    cat >"$tmpfile"
+    uuencode -m "$tmpfile" dummy | sed '1d;$d' | tr -d '\n'
+    rm -f "$tmpfile"
+  else
+    echo "Error: base64_noline is not supported on this system." >&2
+    exit 1
+  fi
+}
+
 # Base64 encoding function for URL-safe encoding
 # This function is used for encoding the header and payload in JWT (JSON Web Token)
 base64_url_encode() {
@@ -78,7 +99,7 @@ base64_url_encode() {
 
   # Perform base64 encoding, then modify the result to be URL-safe
   # Replace '+' with '-', '/' with '_', and remove '=' padding
-  printf "%s" "$input" | base64 -w 0 | tr '+/' '-_' | tr -d '='
+  printf "%s" "$input" | base64_noline | tr '+/' '-_' | tr -d '='
 }
 
 # Generate HMAC-SHA256 signature
@@ -92,7 +113,7 @@ signature() {
   # - Encode the result in Base64
   # - Convert '+' to '-', '/' to '_', and remove '=' padding for URL safety
   printf "%s" "$data" | openssl dgst -sha256 -hmac "$secret" -binary \
-    | base64 -w 0 | tr '+/' '-_' | tr -d '='
+    | base64_noline | tr '+/' '-_' | tr -d '='
 }
 
 # Generate a JWT (JSON Web Token)
@@ -284,7 +305,7 @@ main() {
     version="v$version"
   fi
 
-  local tools=("curl" "jq" "npm" "uuidgen" "base64" "openssl" "date")
+  local tools=("curl" "jq" "npm" "uuidgen" "openssl" "date")
   # Check if the necessary tools exist
   check_required_tools "${tools[@]}"
 
