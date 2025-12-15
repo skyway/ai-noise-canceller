@@ -74,10 +74,10 @@ make_payload() {
 base64_noline() {
   if command -v base64 >/dev/null 2>&1; then
     local base64_help_output=$(base64 --help 2>&1 || true)
-    if printf '%s' "$base64_help_output" | grep -q -- '-w'; then
-      base64 -w 0
-    elif printf '%s' "$base64_help_output" | grep -q -- '-b'; then
+    if printf '%s' "$base64_help_output" | grep -q -- '-b'; then
       base64 -b 0
+    elif printf '%s' "$base64_help_output" | grep -q -- '-w'; then
+      base64 -w 0
     else
       base64 | tr -d '\n'
     fi
