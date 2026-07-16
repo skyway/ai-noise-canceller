@@ -14,6 +14,7 @@ Enterprise プランをご契約のお客様はテクニカルサポートをご
 # ライブラリのインストール方法
 
 プラットフォームに応じたディレクトリの README をご参照ください。
+
 - [JavaScript](./js/README.md)
 - [Android](./android/README.md)
 - [iOS](./ios/README.md)
@@ -28,10 +29,17 @@ Enterprise プランをご契約のお客様はテクニカルサポートをご
 
 - [AI Noise Canceller ライブラリ](https://skyway.ntt.com/ja/docs/api-reference/ai-noise-canceller/)
 
+# 体験サイト
+
+以下のサイトで AI Noise Canceller のノイズ抑制効果をお試しいただけます。
+
+[AI Noise Canceller 体験サイト](https://skyway.ntt.com/demo/noise-canceller/)
+
 # 利用規約
 
 本ライブラリ「SkyWay AI Noise Canceller」は OSS ではありません。  
 ソフトウェアやそのアーカイブに対して以下のような行為を禁止しております。
+
 - 改変
 - リバースエンジニアリング
 - 公開リポジトリへのアップロード
